@@ -1,4 +1,9 @@
 package com.cintie.messenger.network;
 
-public class ClientConnection {
+public class ClientConnection implements Runnable{
+
+    @Override
+    public void run() {
+
+    }
 }
