@@ -31,6 +31,7 @@ public class ClientConnection implements Runnable{
         try {
             writer.write(message);
             writer.newLine();
+            writer.flush();
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -49,7 +50,6 @@ public class ClientConnection implements Runnable{
                 messageService.handleIncoming(line);
             }
         } catch (IOException e){
-            System.out.println("Connection error: " + getRemoteAddress());
         } finally {
             connectionManager.removeConnection(this);
             try {

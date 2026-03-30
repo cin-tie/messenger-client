@@ -3,6 +3,7 @@ package com.cintie.messenger.service;
 import com.cintie.messenger.message.Message;
 import com.cintie.messenger.network.ConnectionManager;
 
+// TODO: do beautiful output
 public class MessageService {
     private final ConnectionManager connectionManager;
     private String username = "user";

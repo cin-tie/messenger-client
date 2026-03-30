@@ -22,8 +22,6 @@ public class ServerListener implements Runnable{
     @Override
     public void run() {
         try (ServerSocket serverSocket = new ServerSocket(port)){
-            System.out.println("Listening on port: " + port);
-
             while (true){
                 Socket socket = serverSocket.accept();
 
