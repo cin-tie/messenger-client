@@ -3,37 +3,33 @@ package com.cintie.messenger.service;
 import com.cintie.messenger.message.Message;
 import com.cintie.messenger.network.ConnectionManager;
 
-// TODO: do beautiful output
 public class MessageService {
-    private final ConnectionManager connectionManager;
-    private String username = "user";
 
-    public MessageService(ConnectionManager connectionManager){
+    private final ConnectionManager connectionManager;
+
+    private String username;
+    private String peerId;
+
+    public MessageService(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
     }
 
-    public void setUsername(String username){
+    public void init(String username, String peerId) {
         this.username = username;
+        this.peerId = peerId;
     }
 
-    public  void sendMessage(String content){
-        Message message = new Message(username, content);
-        connectionManager.broadcast(serialize(message));
+    public void sendMessage(String toPeerId, String content) {
+        String packet = peerId + "|" + toPeerId + "|" + content;
+        connectionManager.sendTo(toPeerId, packet);
     }
 
     public void handleIncoming(String raw) {
-        Message message = deserialize(raw);
-        System.out.println(message);
-    }
+        String[] parts = raw.split("\\|", 2);
 
-    private String serialize(Message message) {
-        return message.getSender() + "|" +
-                message.getTimestamp() + "|" +
-                message.getContent();
-    }
+        String from = parts[0];
+        String message = parts[1];
 
-    private Message deserialize(String raw) {
-        String[] parts = raw.split("\\|", 3);
-        return new Message(parts[0], parts[2]);
+        System.out.println("[" + from + "]: " + message);
     }
 }

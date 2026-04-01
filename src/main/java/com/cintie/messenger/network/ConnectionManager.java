@@ -15,13 +15,9 @@ public class ConnectionManager {
         connections.remove(connection);
     }
 
-    public void broadcast(String message) {
+    public void sendTo(String toPeerId, String message) {
         for (ClientConnection connection : connections) {
             connection.send(message);
         }
-    }
-
-    public List<ClientConnection> getConnections() {
-        return connections;
     }
 }
