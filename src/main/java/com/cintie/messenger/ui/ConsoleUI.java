@@ -1,5 +1,6 @@
 package com.cintie.messenger.ui;
 
+import com.cintie.messenger.crypto.PeerIdGenerator;
 import com.cintie.messenger.network.ClientConnection;
 import com.cintie.messenger.network.ConnectionManager;
 import com.cintie.messenger.service.MessageService;
@@ -22,34 +23,44 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter username: ");
-        messageService.setUsername(scanner.nextLine());
+        String username = scanner.nextLine();
 
-        while (true){
+        String peerId = PeerIdGenerator.generate();
+
+        messageService.init(username, peerId);
+
+        System.out.println("Your peerId: " + peerId);
+
+        while (true) {
             String input = scanner.nextLine();
 
-            if(input.startsWith("/connect")){
+            if (input.startsWith("/connect")) {
                 String[] parts = input.split(" ");
-                connect(parts[1], Integer.parseInt(parts[2]));
-            } else if(input.equals("/exit")){
+                connect(parts[1], Integer.parseInt(parts[2]), peerId);
+
+            } else if (input.startsWith("/msg")) {
+                String[] parts = input.split(" ", 3);
+                messageService.sendMessage(parts[1], parts[2]);
+
+            } else if (input.equals("/exit")) {
                 System.exit(0);
-            }
-            else{
-                messageService.sendMessage(input);
             }
         }
     }
 
-    private void connect(String host, int port){
+    private void connect(String host, int port, String peerId) {
         try {
             Socket socket = new Socket(host, port);
 
-            ClientConnection connection = new ClientConnection(socket, connectionManager, messageService);
-            connectionManager.addConnection(connection);
+            ClientConnection connection =
+                    new ClientConnection(socket, connectionManager, messageService, peerId);
 
+            connectionManager.addConnection(connection);
             new Thread(connection).start();
 
-            System.out.println("Connected to " + host + ":" + port);
-        } catch (IOException e){
+            System.out.println("Connected to relay");
+
+        } catch (IOException e) {
             System.out.println("Connection failed");
         }
     }
