@@ -14,15 +14,24 @@ public class ClientConnection implements Runnable{
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public ClientConnection(Socket socket, ConnectionManager connectionManager, MessageService messageService){
+    private final String myPeerId;
+
+    public ClientConnection(Socket socket, ConnectionManager connectionManager,
+                            MessageService messageService, String myPeerId) {
         this.socket = socket;
         this.connectionManager = connectionManager;
         this.messageService = messageService;
+        this.myPeerId = myPeerId;
 
-        try{
+        try {
             this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e){
+
+            writer.write(myPeerId);
+            writer.newLine();
+            writer.flush();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -35,10 +44,6 @@ public class ClientConnection implements Runnable{
         } catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public String getRemoteAddress(){
-        return socket.getRemoteSocketAddress().toString();
     }
 
     @Override
