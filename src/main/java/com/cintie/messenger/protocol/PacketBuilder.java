@@ -100,4 +100,14 @@ public class PacketBuilder {
                 null
         );
     }
+
+    // Create error packet
+    public static Packet error(String senderId, String recipientId, String errorMessage){
+        return base(
+                PacketType.ERROR,
+                senderId,
+                recipientId,
+                new MessagePayload(errorMessage)
+        );
+    }
 }
