@@ -3,7 +3,7 @@ package com.cintie.messenger.protocol;
 import java.util.List;
 
 // Stores route hops for forwarding
-public class RoutePayload {
+public class RoutePayload implements Payload {
 
     private List<String> hops;
 

@@ -3,9 +3,7 @@ package com.cintie.messenger.protocol;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 
-/**
- * Serializes and deserializes packets.
- */
+// Serializes and deserializes packets.
 public class PacketSerializer {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
