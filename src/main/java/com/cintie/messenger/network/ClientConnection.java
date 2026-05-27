@@ -61,7 +61,7 @@ public class ClientConnection implements Runnable{
     }
 
     // Send all packets
-    private void sendPacket(Packet packet) throws Exception{
+    public void sendPacket(Packet packet) throws Exception{
         String json = PacketSerializer.serialize(packet);
         writer.write(json);
         writer.newLine();
