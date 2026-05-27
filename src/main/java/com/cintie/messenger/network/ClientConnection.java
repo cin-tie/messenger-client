@@ -51,7 +51,7 @@ public class ClientConnection implements Runnable{
     // Send message
     public void sendMessage(String toPeerId, String content){
         try {
-            Packet messagePacket = PacketBuilder.message(myPeerId, toPeerId, content)
+            Packet messagePacket = PacketBuilder.message(myPeerId, toPeerId, content);
             sendPacket(messagePacket);
             System.out.println("Sent MESSAGE to " + toPeerId);
         } catch (Exception e) {
