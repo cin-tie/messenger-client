@@ -39,7 +39,7 @@ public class PacketBuilder {
         return base(
                 PacketType.HELLO,
                 clientId,
-                clientId,
+                null,
                 null
         );
     }
