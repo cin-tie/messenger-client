@@ -1,0 +1,15 @@
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/Main.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/crypto/PeerIdGenerator.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/network/ClientConnection.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/network/ConnectionManager.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/KeyExchangePayload.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/MessagePayload.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/Packet.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/PacketBuilder.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/PacketSerializer.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/PacketType.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/PacketValidator.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/Payload.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/protocol/RoutePayload.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/services/MessageService.java
+/home/cintie/Documents/projects/messenger-client/src/main/java/com/cintie/messenger/ui/ConsoleUI.java
