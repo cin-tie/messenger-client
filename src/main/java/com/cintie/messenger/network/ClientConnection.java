@@ -1,7 +1,7 @@
 package com.cintie.messenger.network;
 
 import com.cintie.messenger.protocol.*;
-import com.cintie.messenger.service.MessageService;
+import com.cintie.messenger.services.MessageService;
 
 import java.io.*;
 import java.net.Socket;
@@ -20,8 +20,7 @@ public class ClientConnection implements Runnable{
     private boolean isRegistered = false;
 
     // Constructor
-    public ClientConnection(Socket socket, ConnectionManager connectionManager,
-                            MessageService messageService, String myPeerId) {
+    public ClientConnection(Socket socket, ConnectionManager connectionManager, MessageService messageService, String myPeerId) {
         this.socket = socket;
         this.connectionManager = connectionManager;
         this.messageService = messageService;
@@ -50,7 +49,7 @@ public class ClientConnection implements Runnable{
     }
 
     // Send message
-    private void sendMessage(String toPeerId, String content){
+    public void sendMessage(String toPeerId, String content){
         try {
             Packet messagePacket = PacketBuilder.message(myPeerId, toPeerId, content)
             sendPacket(messagePacket);

@@ -1,7 +1,7 @@
 package com.cintie.messenger;
 
 import com.cintie.messenger.network.ConnectionManager;
-import com.cintie.messenger.service.MessageService;
+import com.cintie.messenger.services.MessageService;
 import com.cintie.messenger.ui.ConsoleUI;
 
 public class Main {

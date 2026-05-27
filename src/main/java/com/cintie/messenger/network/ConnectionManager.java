@@ -34,4 +34,8 @@ public class ConnectionManager {
             System.err.println("No connection found for peer: " + toPeerId);
         }
     }
+
+    public boolean hasConnection() {
+        return !connections.isEmpty();
+    }
 }
