@@ -1,6 +1,5 @@
 package com.cintie.messenger.ui;
 
-import com.cintie.messenger.crypto.PeerIdGenerator;
 import com.cintie.messenger.network.ClientConnection;
 import com.cintie.messenger.network.ConnectionManager;
 import com.cintie.messenger.services.MessageService;
