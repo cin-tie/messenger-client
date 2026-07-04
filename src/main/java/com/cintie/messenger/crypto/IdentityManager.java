@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -79,7 +80,7 @@ public class IdentityManager {
         }
 
         // PeerId as SHA-256 from public key
-        byte[] rawPublicKey = getRawBytesFromPublicKey(this,publicKey);
+        byte[] rawPublicKey = getRawBytesFromPublicKey(this.publicKey);
         byte[] peerIdBytes = computeSha256(rawPublicKey);
 
         // Convertation of peer id
@@ -144,4 +145,45 @@ public class IdentityManager {
             throw new RuntimeException("Error: peer id not equals saved. Updated");
         }
     }
+
+    // Get raw bytes from public key
+    private byte[] getRawBytesFromPublicKey(PublicKey publicKey){
+        byte[] encoded = publicKey.getEncoded();
+        return encoded;
+    }
+
+    // Get SHA-256 hash
+    private byte[] computeSha256(byte[] data){
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            return digest.digest(data);
+        } catch (NoSuchAlgorithmException e){
+            throw new RuntimeException("SHA-256 not available", e);
+        }
+    }
+
+    // Convert bytes to hex
+    private String bytesToHex(byte[] bytes){
+        StringBuilder hexString = new StringBuilder();
+        for(byte b: bytes){
+            String hex = Integer.toHexString(0xff & b);
+            if(hex.length() == 1){
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    // Atomically saving file
+    private void saveFileAtomically(Path path, String content){
+        try {
+            Path tempPath = path.resolveSibling(path.getFileName() + ".tmp");
+            Files.writeString(tempPath, content);
+            Files.move(tempPath, path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e){
+            throw new RuntimeException("Failed to save file: " + path, e);
+        }
+    }
+
 }
