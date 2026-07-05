@@ -186,4 +186,48 @@ public class IdentityManager {
         }
     }
 
+    // Signing data
+    public byte[] sign(byte[] data) throws Exception{
+        Signature signature = Signature.getInstance(ALGORITHM);
+        signature.initSign(privateKey);
+        signature.update(data);
+        return signature.sign();
+    }
+
+    // Verify signature
+    public boolean verify(byte[] data, byte[] signatureBytes, PublicKey peerPublicKey) throws Exception{
+        Signature signature = Signature.getInstance(ALGORITHM);
+        signature.initVerify(peerPublicKey);
+        signature.update(data);
+        return signature.verify(signatureBytes);
+    }
+
+    // Getters
+    public PrivateKey getPrivateKey(){
+        return privateKey;
+    }
+
+    public PublicKey getPublicKey(){
+        return publicKey;
+    }
+
+    public String getPeerIdHex(){
+        return  peerIdHex;
+    }
+
+    public String getPeerIdBase64(){
+        return peerIdBase64;
+    }
+
+    // Encode public key
+    public String getPublicKeyBase64(){
+        return Base64.getEncoder().encodeToString(publicKey.getEncoded());
+    }
+    // Decode public key
+    public static PublicKey publicKeyFromBase64(String base64) throws Exception {
+        byte[] keyBytes = Base64.getDecoder().decode(base64);
+        KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
+        return keyFactory.generatePublic(new X509EncodedKeySpec(keyBytes));
+    }
+
 }
